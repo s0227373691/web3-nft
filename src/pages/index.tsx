@@ -15,6 +15,7 @@ export default function Home() {
   const [uploading, setUploading] = useState(false);
 
   const inputFile = useRef(null);
+  const inputDesc = useRef(null);
 
   const uploadMetadata = async () => {
     const metadata = { askdn: "456", imgCid };
@@ -63,10 +64,24 @@ export default function Home() {
     }
   };
 
+  const mint = () => {
+    const desc = inputDesc.current.value;
+    console.log(desc);
+  };
+
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
+      <label htmlFor="description">
+        <span className="px-4">Description</span>
+        <input
+          id="description"
+          className="w-[480px] py-2 px-4 text-black"
+          placeholder="Description"
+          ref={inputDesc}
+        />
+      </label>
       <input
         type="file"
         id="file"
@@ -74,7 +89,6 @@ export default function Home() {
         onChange={handleChange}
         style={{ display: "none" }}
       />
-      <code></code>
 
       <button
         disabled={uploading}
@@ -91,6 +105,7 @@ export default function Home() {
       </button>
       {imgCid && <Files cid={imgCid} />}
       {metadataCid && <Metadata cid={metadataCid} />}
+      <button onClick={mint}>Mint</button>
     </main>
   );
 }
